@@ -18,6 +18,7 @@ namespace REPORTer.Controllers
             _userService = userService;
         }
         [HttpPost]
+        [Route("register")]
         public int Create(UserAddDTO user)
         {
             try
