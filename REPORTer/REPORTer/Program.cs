@@ -1,4 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
+using REPORTer.BLL.Services.Implementations;
+using REPORTer.BLL.Services.Interfaces;
 using REPORTer.DAL.DB;
 using REPORTer.DAL.Entities;
 using REPORTer.DAL.Repositories.Implementations;
@@ -11,6 +13,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<AppDbContext>();
 
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+builder.Services.AddTransient<IUserService, UserService>();
 
 
 builder.Services.AddControllers();
