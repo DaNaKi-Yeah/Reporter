@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.DataProtection.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using REPORTer.BLL.Services.Interfaces;
 using REPORTer.DAL.Entities;
 using REPORTer.DAL.Repositories.Interfaces;
+using REPORTer.DTO.UserDTOs;
 
 namespace REPORTer.Controllers
 {
@@ -10,10 +12,33 @@ namespace REPORTer.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        private readonly IRepository<User> _userRepository;
-        public UserController(IRepository<User> userRepository)
+        private readonly IUserService _userService;
+        public UserController(IUserService userService)
         {
-            _userRepository = userRepository;
+            _userService = userService;
+        }
+        [HttpPost]
+        public int Create(UserAddDTO user)
+        {
+            if (user is null)
+            {
+                return -1;
+            }
+            var Id = _userService.Create(user);
+            return Id;
+        }
+        [HttpGet]
+        public UserGetDTO GetById(int id) 
+        {
+            try
+            {
+                var user = _userService.GetById(id);            
+                return user;
+            }
+            catch (Exception exeption)
+            {
+                throw;
+            }
         }
     }
 }
