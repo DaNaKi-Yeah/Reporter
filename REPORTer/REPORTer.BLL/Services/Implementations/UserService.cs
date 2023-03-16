@@ -1,0 +1,41 @@
+﻿using AutoMapper;
+using REPORTer.BLL.Services.Interfaces;
+using REPORTer.DAL.Entities;
+using REPORTer.DAL.Repositories.Interfaces;
+using REPORTer.DTO.UserDTOs;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace REPORTer.BLL.Services.Implementations
+{
+    public class UserService : IUserService
+    {
+        private readonly IRepository<User> _userRepository;
+        private readonly IMapper _mapper;
+        public UserService(IRepository<User> userRepository, IMapper mapper)
+        {
+            _userRepository = userRepository;
+            _mapper = mapper;
+        }
+
+        public int Create(UserAddDTO user)
+        {
+            var userEntity = _mapper.Map<User>(user);
+            _userRepository.Add(userEntity);
+            return userEntity.Id;
+        }
+
+        public UserGetDTO GetById(int Id)
+        {
+            var userEntity = _userRepository.GetById(Id);
+            if (userEntity is null)
+            {
+                throw new Exception("Entity with given id does not exist");
+            }
+            return _mapper.Map<UserGetDTO>(userEntity);
+        }
+    }
+}
