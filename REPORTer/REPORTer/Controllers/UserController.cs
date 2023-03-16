@@ -31,6 +31,24 @@ namespace REPORTer.Controllers
                 throw;
             }
         }
+
+        [HttpPost]
+        [Route("login")]
+        public UserGetDTO Login(UserLoginDTO user)
+        {
+            try
+            {
+                UserGetDTO userEntity = _userService.GetByEmailAndPassword(user);
+
+                return userEntity;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+
         [HttpGet]
         public UserGetDTO GetById(int id) 
         {
