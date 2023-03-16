@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using REPORTer.BLL.Services.Interfaces;
 using REPORTer.DAL.Entities;
+using REPORTer.DAL.Enums;
 using REPORTer.DAL.Repositories.Interfaces;
 using REPORTer.DTO.UserDTOs;
 using System;
@@ -29,6 +30,9 @@ namespace REPORTer.BLL.Services.Implementations
             }
 
             var userEntity = _mapper.Map<User>(user);
+
+            SetDefaultRoles(userEntity);
+
             _userRepository.Add(userEntity);
             return userEntity.Id;
         }
@@ -41,6 +45,12 @@ namespace REPORTer.BLL.Services.Implementations
                 throw new Exception("Entity with given id does not exist");
             }
             return _mapper.Map<UserGetDTO>(userEntity);
+        }
+
+        private void SetDefaultRoles(User user)
+        {
+            user.RoleInGroup = RoleInGroup.None;
+            user.RoleInReporter = RoleInReporter.User;
         }
     }
 }
