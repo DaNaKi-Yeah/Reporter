@@ -8,6 +8,7 @@ namespace REPORTer.DAL.Enums
 {
     public enum RoleInGroup
     {
+        None,
         Developer,
         QualityAssurance,
         ProjectManager
