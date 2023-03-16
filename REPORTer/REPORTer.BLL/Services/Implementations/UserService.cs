@@ -37,6 +37,30 @@ namespace REPORTer.BLL.Services.Implementations
             return userEntity.Id;
         }
 
+        public UserGetDTO GetByEmailAndPassword(UserLoginDTO userLoginDTO)
+        {
+            string userEmail = userLoginDTO.Email;
+            string userPassword = userLoginDTO.Password;
+
+            List<User> users = _userRepository.GetAll();
+
+            foreach (User user in users)
+            {
+                if (user.Email == userEmail)
+                {
+                    if (user.Password == userPassword)
+                    {
+                        return _mapper.Map<UserGetDTO>(user);
+                    }
+                    else
+                    {
+                        throw new Exception("Invalid password");
+                    }
+                }
+            }
+            throw new Exception("Not found user");
+        }
+
         public UserGetDTO GetById(int Id)
         {
             var userEntity = _userRepository.GetById(Id);
