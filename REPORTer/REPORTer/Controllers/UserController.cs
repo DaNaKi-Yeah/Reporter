@@ -20,12 +20,15 @@ namespace REPORTer.Controllers
         [HttpPost]
         public int Create(UserAddDTO user)
         {
-            if (user is null)
+            try
             {
-                return -1;
+                var Id = _userService.Create(user);
+                return Id;
             }
-            var Id = _userService.Create(user);
-            return Id;
+            catch (Exception exeption)
+            {
+                throw;
+            }
         }
         [HttpGet]
         public UserGetDTO GetById(int id) 

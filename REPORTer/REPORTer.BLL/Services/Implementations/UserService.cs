@@ -23,6 +23,11 @@ namespace REPORTer.BLL.Services.Implementations
 
         public int Create(UserAddDTO user)
         {
+            if (user is null)
+            {
+                throw new Exception("Invalid object for creating");
+            }
+
             var userEntity = _mapper.Map<User>(user);
             _userRepository.Add(userEntity);
             return userEntity.Id;
