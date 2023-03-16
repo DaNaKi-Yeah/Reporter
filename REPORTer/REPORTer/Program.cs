@@ -3,6 +3,7 @@ using REPORTer.BLL.Services.Implementations;
 using REPORTer.BLL.Services.Interfaces;
 using REPORTer.DAL.DB;
 using REPORTer.DAL.Entities;
+using REPORTer.DAL.Helpers;
 using REPORTer.DAL.Repositories.Implementations;
 using REPORTer.DAL.Repositories.Interfaces;
 
@@ -15,6 +16,7 @@ builder.Services.AddDbContext<AppDbContext>();
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddTransient<IUserService, UserService>();
 
+builder.Services.AddAutoMapper(config => config.AddProfile<MapProfile>());
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
